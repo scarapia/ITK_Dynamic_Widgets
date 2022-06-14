@@ -5,10 +5,15 @@ class ContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 200,
-      color: Colors.red,
-    );
+     return Container(
+        height: 100,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.amber,
+       
+          border: Border.all(color: Colors.black, width: 8),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        margin: EdgeInsets.all(12));
   }
 }

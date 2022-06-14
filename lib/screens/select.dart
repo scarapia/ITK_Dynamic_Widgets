@@ -34,69 +34,71 @@ class _SelectScreenState extends State<SelectScreen> {
     controller.dispose();
     super.dispose();
   }
- 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Text("widget selected: $widgetSelected"),
-              DropdownButton(
-                  value: widgetSelected,
-                  onChanged: (val) {
-                    setState(() {
-                      widgetSelected = val.toString();
-                    });
-                  },
-                  items: [
-                    DropdownMenuItem(
-                      child: Text("TextField"),
-                      value: "TextField",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Text"),
-                      value: "Text",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Container"),
-                      value: "Container",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Button"),
-                      value: "Button",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Icon"),
-                      value: "Icon",
-                    ),
-                  ]),
-              TextField(
-                controller: controller,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Number of widgets to generate:',
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                Text("widget selected: $widgetSelected"),
+                DropdownButton(
+                    value: widgetSelected,
+                    onChanged: (val) {
+                      setState(() {
+                        widgetSelected = val.toString();
+                      });
+                    },
+                    items: [
+                      DropdownMenuItem(
+                        child: Text("TextField"),
+                        value: "TextField",
+                      ),
+                      DropdownMenuItem(
+                        child: Text("Text"),
+                        value: "Text",
+                      ),
+                      DropdownMenuItem(
+                        child: Text("Container"),
+                        value: "Container",
+                      ),
+                      DropdownMenuItem(
+                        child: Text("Button"),
+                        value: "Button",
+                      ),
+                      DropdownMenuItem(
+                        child: Text("Icon"),
+                        value: "Icon",
+                      ),
+                    ]),
+                TextField(
+                  controller: controller,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Number of widgets to generate:',
+                  ),
+                  keyboardType: TextInputType.number, //Numbers-Only-Keyboard
                 ),
-                keyboardType: TextInputType.number, //Numbers-Only-Keyboard
-              ),
-              ElevatedButton(
-                  //onPressed: null,
-                  onPressed: isButtonActive
-                      ? () {
-                          setState(() {
-                            quantityWigets = controller.text;
-                            isButtonActive = false;
-                            print(quantityWigets);
-                            Get.to(ShowScreen(itemsWidgets: quantityWigets,));
-                          });
-                        }
-                      : null,
-                  
-                  child: Text("Generate")),
-            ],
+                ElevatedButton(
+                    //onPressed: null,
+                    onPressed: isButtonActive
+                        ? () {
+                            setState(() {
+                              quantityWigets = int.parse(controller.text);
+                              isButtonActive = false;
+                              Get.to(ShowScreen(
+                                itemsWidgets: quantityWigets,
+                                nameWidget: widgetSelected,
+                              ));
+                            });
+                          }
+                        : null,
+                    child: Text("Generate")),
+              ],
+            ),
           ),
         ),
       ),
